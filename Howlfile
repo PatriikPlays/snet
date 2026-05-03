@@ -1,0 +1,29 @@
+Options:Default "trace"
+
+Tasks:clean()
+
+Tasks:minify "minify" {
+	input = "build/snet.lua",
+	output = "build/snet.min.lua",
+}
+
+Tasks:require "main" {
+	include = "src/*.lua",
+	startup = "src/snet.lua",
+	output = "build/snet.lua",
+	rename = function(file)
+		-- remove src prefix
+		local name = file.name:gsub("^src.", "")
+		return name
+	end,
+	modify = function(file)
+		local contents = file.contents
+		-- remove shebang line if it exists
+		contents = contents:gsub("^#!.-\n", "")
+		return contents
+	end,
+}
+
+Tasks:Task "build" { "clean", "minify" } :Description "Main build task"
+
+Tasks:Default "main"

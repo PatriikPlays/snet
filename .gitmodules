@@ -1,0 +1,6 @@
+[submodule "ccryptolib"]
+	path = ccryptolib
+	url = https://github.com/migeyel/ccryptolib/
+[submodule "howl"]
+	path = howl
+	url = https://github.com/squidDev-CC/howl/
